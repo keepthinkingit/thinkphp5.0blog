@@ -15,9 +15,9 @@ return [
     // +----------------------------------------------------------------------
 
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => false,
+    'app_trace'              => true,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -122,6 +122,8 @@ return [
     'template'               => [
         // 模板引擎类型 支持 php think 支持扩展
         'type'         => 'Think',
+        // 默认模板渲染规则 1 解析为小写+下划线 2 全部转换小写
+        'auto_rule'    => 1,
         // 模板路径
         'view_path'    => '',
         // 模板后缀
@@ -139,7 +141,8 @@ return [
     ],
 
     // 视图输出字符串内容替换
-    'view_replace_str'       => [],
+    'view_replace_str'       => ['__PUBLIC__'=>'/public/',
+        '__ADMIN__' => '/static/admin/','__HOME__' => '/static/home/',],
     // 默认跳转页面对应的模板文件
     'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
     'dispatch_error_tmpl'    => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
@@ -236,4 +239,29 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+
+    //验证码配置
+    'captcha' => [
+        //验证码字符集合
+        'codeSet' => '23456789abdcefghjiklmnopqrstuvwxyzQWERTYUIOPASDFGHJKLZXCVNBM',
+        //字体大小
+        'fontSize' => 21,
+        //是否画混淆曲线
+        'useCurve' => true,
+        //验证码图片高度
+        'imageH' => 50,
+        //图片宽度
+        'imageW' => 250,
+        //位数
+        'length' => 4,
+        //验证后是否重置
+        'reset' => true
+    ],
+
+    //加密模块
+    'crypt' => [
+        //加密key
+        'key' => '405305c793179059f8fd52436876750c587d19ccfbbe2a643743d021dbdcd79c'
+    ],
+
 ];
