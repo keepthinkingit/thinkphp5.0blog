@@ -253,7 +253,7 @@ return [
         //图片宽度
         'imageW' => 250,
         //位数
-        'length' => 4,
+        'length' => 1,
         //验证后是否重置
         'reset' => true
     ],
