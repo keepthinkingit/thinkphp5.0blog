@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 use app\common\model\Admin;
+use think\Session;
 
 
 class Index extends Common
@@ -30,5 +31,12 @@ class Index extends Common
         }
 
         return $this->fetch();
+    }
+
+    //退出登录
+    public function logout(){
+        session(null);
+        $this->success('退出成功', 'admin/index/login');
+        // return $this->fetch();
     }
 }
