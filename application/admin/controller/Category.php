@@ -23,28 +23,50 @@ class Category extends Controller
     //栏目列表
     public function index(){
         //提交过来的请求信息是post,连接数据库获取类型列表
-        if(request()->isPost()){
-            $catList = (new Category())->catList();
-            // dump($catList);exit();
-            $this->assign('list', $catList);
-        }
+        // if(request()->isPost()){
+        //     $catList = (new \app\common\model\Category())->catList();
+            $catlist = db('cate')->select();
+            // halt($catlist);exit;
+            $this->assign('list', $catlist);
+        // }
         return $this->fetch();
     }
 
     //添加栏目
-    public function addcat(){
+    public function addCat(){
         //判断post过来的数据
         if(request()->isPost()){
             // halt(input('post.'));
-            $result = $this->db->catadd(input('post.'));
+            $result = $this->db->catAdd(input('post.'));
             if($result['valid']){
                     //验证成功
                     $this->success($result['msg'], 'index');exit;
             }else{
-                    //登录失败
+                    //验证失败
                     $this->error($result['msg']);exit;
             }
         }
+        return $this->fetch();
+    }
+
+    //添加栏目子集
+    public function addSon(){
+        if(request()->isPost()){
+            $result = $this->db->catAdd(input('post.'));
+            if($result['valid']){
+                //验证成功
+                $this->success($result['msg'], 'index');exit;
+            }else{
+                //验证失败
+                $this->error($result['msg']);exit;
+            }
+        }
+        //为什么验证器成功之后可以和cate_id一起保存到数据库?
+        $cate_id = input('param.cate_id');
+        $data = $this->db->where('cate_id', $cate_id)->find();
+        // halt($data);
+        $this->assign('data', $data);
+
         return $this->fetch();
     }
 }

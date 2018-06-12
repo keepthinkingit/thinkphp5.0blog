@@ -13,12 +13,12 @@ class Category extends Model
     protected $table = 'blog_cate';  //完整的表名称
 
     public function catList(){
-        $cat_list = $this->where('cate_id', '*')->select();
+        $cat_list = db('cate')->select();
         // dump($cat_list);exit;
         return $cat_list;
     }
 
-    public function catadd($data){
+    public function catAdd($data){
         //执行验证
 
         $result = $this->validate(true)->save($data);
