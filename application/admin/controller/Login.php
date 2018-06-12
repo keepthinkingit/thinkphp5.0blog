@@ -4,7 +4,7 @@ namespace app\admin\controller;
 
 use think\Controller;
 use app\common\model\Admin;
-use houdunwang\crypt\Crypt;
+// use houdunwang\crypt\Crypt;
 
 class Login extends Controller
 {

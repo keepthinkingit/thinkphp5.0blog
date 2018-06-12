@@ -5,6 +5,7 @@ namespace app\common\model;
 use houdunwang\crypt\Crypt;
 use think\Loader;
 use think\Model;
+use think\Validate;
 
 
 class Admin extends Model
@@ -39,4 +40,36 @@ class Admin extends Model
         return ['valid'=>1, 'msg'=> '登录成功!'];
     }
 
+    /**
+     * 修改密码
+     * @param  array/bool $data  post传过来的数据
+     * @return  mixed  bool/array 返回成功数据
+     */
+    public function pass($data){
+        //1.执行验证
+        $validate = Loader::validate('Changepw');
+        // 验证失败
+        if (!$validate->check($data)) {
+             // dump($validate->getError());
+            return ['valid'=>0,'msg'=>$validate->getError()];
+        }
+        //2.原始密码判断
+        $user_info = $this->where('admin_id', session('admin.admin_id'))->where('admin_password',Crypt::encrypt($data['admin_password']))->find();
+        // dump($user_info);
+        if(!$user_info){
+            return ['valid'=>0, 'msg'=>'原密码不正确'];
+        }
+        //3.正确则执行密码修改
+
+        //save 方法第二个参数 更新数据
+        $res = $this->save([
+            'admin_password'=> Crypt::encrypt($data['admin_new_password']),
+        ], [$this->pk => session('admin.admin_id')]);
+        if($res){
+            return ['valid'=>1, 'msg'=>'密码修改成功'];
+        }else{
+            return ['valid'=>0, 'msg' => '密码修改失败'];
+        }
+
+    }
 }
