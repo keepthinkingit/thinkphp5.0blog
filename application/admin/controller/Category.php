@@ -105,4 +105,16 @@ class Category extends Controller
         $this->assign('data', $oldData);
         return $this->fetch();
     }
+
+    public function del(){
+        $cate_id = input('param.cate_id');
+        $result = $this->db->del($cate_id);
+        if($result['valid']){
+            //删除成功
+            $this->success($result['msg'], 'index');
+        }else{
+            //删除失败
+            $this->error($result['msg']);
+        }
+    }
 }

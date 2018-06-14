@@ -101,4 +101,25 @@ class Category extends Model
         }
     }
 
+    /**
+     * 删除当前分类,将子分类向前移动一级
+     * @param $cate_id
+     * @return array
+     */
+    public function del($cate_id){
+        //获取当前将要删除数据的pid
+        $pid = $this->where('cate_id',$cate_id)->value('cate_pid');
+        //将当前所有子集的pid换为父集的pid
+        // halt($pid);
+        $this->where('cate_pid',$cate_id)->update(['cate_pid'=>$pid]);
+        //删除当前分类
+        if(!Category::destroy($cate_id)){
+            //删除失败
+            return ['valid'=>0,'msg'=>$this->getError()];
+        }else{
+            //删除成功后执行添加
+            return ['valid'=>1, 'msg'=> '删除成功!'];
+        }
+    }
+
 }
