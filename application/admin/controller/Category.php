@@ -7,7 +7,7 @@ use think\Controller;
 
 /**
  * Class Category
- * 栏目管理控制器
+ * //栏目管理控制器
  * @package app\admin\controller
  */
 
@@ -20,19 +20,23 @@ class Category extends Controller
         $this->db = new \app\common\model\Category();
     }
 
-    //栏目列表
+    //栏目列表https://www.oschina.net/code/snippet_173183_11767
+    /**
+     * 栏目列表主页,展示所有栏目
+     * @return mixed
+     */
     public function index(){
         //提交过来的请求信息是post,连接数据库获取类型列表
-        // if(request()->isPost()){
-        //     $catList = (new \app\common\model\Category())->catList();
-            $catlist = db('cate')->select();
-            // halt($catlist);exit;
-            $this->assign('list', $catlist);
-        // }
-        return $this->fetch();
+            $cate_list = $this->db->getALl();
+            // halt($field);
+            $this->assign('list', $cate_list);
+            return $this->fetch();
     }
 
-    //添加栏目
+    /**
+     * //添加栏目
+     * @return mixed
+     */
     public function addCat(){
         //判断post过来的数据
         if(request()->isPost()){
@@ -43,30 +47,62 @@ class Category extends Controller
                     $this->success($result['msg'], 'index');exit;
             }else{
                     //验证失败
-                    $this->error($result['msg']);exit;
+                    $this->error($result['msg']);
             }
         }
+        $cate_list = $this->db->getALl();
+        // halt($field);
+        $this->assign('list', $cate_list);
         return $this->fetch();
     }
 
-    //添加栏目子集
+    /**
+     * //添加栏目子集
+     * @return mixed
+     */
     public function addSon(){
         if(request()->isPost()){
             $result = $this->db->catAdd(input('post.'));
             if($result['valid']){
                 //验证成功
-                $this->success($result['msg'], 'index');exit;
+                $this->success($result['msg'], 'index');
             }else{
                 //验证失败
-                $this->error($result['msg']);exit;
+                $this->error($result['msg']);
             }
         }
-        //为什么验证器成功之后可以和cate_id一起保存到数据库?
         $cate_id = input('param.cate_id');
         $data = $this->db->where('cate_id', $cate_id)->find();
         // halt($data);
         $this->assign('data', $data);
 
+        return $this->fetch();
+    }
+
+    /**
+     * //编辑栏目
+     * @return mixed
+     */
+    public function edit(){
+        //判断post过来的数据
+        if(request()->isPost()){
+            // halt(input('post.'));exit;
+            $result = $this->db->catEdit(input('post.'));
+            if($result['valid']){
+                //验证成功
+                $this->success($result['msg'], 'index');
+            }else{
+                //验证失败
+                $this->error($result['msg']);
+            }
+        }
+        $cate_id = input('param.cate_id');
+        $oldData = $this->db->where('cate_id', $cate_id)->find();
+        // halt($oldData);
+        //处理所属分类,不能包含子集和本身
+        $cateList = $this->db->getPid($cate_id);
+        $this->assign('cateList', $cateList);
+        $this->assign('data', $oldData);
         return $this->fetch();
     }
 }
