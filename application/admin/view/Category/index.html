@@ -4,8 +4,7 @@
 <div class="col-xs-12 col-sm-9 col-lg-10">
     <ol class="breadcrumb" style="background-color: #f9f9f9;padding:8px 0;margin-bottom:10px;">
         <li>
-            <a href=""><i class="fa fa-cogs"></i>
-                栏目管理</a>
+            <a href=""><i class="fa fa-cogs"></i>栏目管理</a>
         </li>
         <li class="active">
             <a href="{:url('index')}">栏目列表</a>
@@ -22,8 +21,8 @@
                     <thead>
                     <tr>
                         <th width="80">编号</th>
-                        <th>栏目名称</th>
-                        <th width="200">操作</th>
+                        <th idth="300">栏目名称</th>
+                        <th width="250">操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -32,20 +31,19 @@
                         <td>{$vo['cate_id']}</td>
                         <td>{$vo['_cate_name']}</td>
                         <td>
-                            <div class="btn-group">
-                                <!--<button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle">操作 <span class="caret"></span></button>-->
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <!--<li class="divider"></li>-->
-                                    <!--<li><a href="javascript:;" onclick="del({$vo['cate_id']})">删除</a></li>-->
-                                </ul>
-                            </div>
+                            <!--<div class="btn-group">-->
+                                <!--&lt;!&ndash;<button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle">操作 <span class="caret"></span></button>&ndash;&gt;-->
+                                <!--<ul class="dropdown-menu dropdown-menu-right">-->
+                                    <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<li><a href="javascript:;" onclick="del({$vo['cate_id']})">删除</a></li>&ndash;&gt;-->
+                                <!--</ul>-->
+                            <!--</div>-->
                             <div>
                                 <a href="{:url('addSon',['cate_id'=>$vo['cate_id']])}">添加子类</a>
                                 <a href="{:url('edit',['cate_id'=>$vo['cate_id']])}">编辑</a>
-
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                 <a href="{:url('del',['cate_id'=>$vo['cate_id']])}">删除</a>
                             </div>
-
                         </td>
                     </tr>
                     {/foreach}

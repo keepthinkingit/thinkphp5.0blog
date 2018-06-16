@@ -1,0 +1,37 @@
+{extend name='base' /}
+{block name='content'}
+<!--右侧主题部分 start-->
+<div class="col-xs-12 col-sm-9 col-lg-10">
+    <ol class="breadcrumb" style="background-color: #f9f9f9;padding:8px 0;margin-bottom:10px;">
+        <li>
+            <a href="{:url('index')}"><i class="fa fa-cogs"></i>标签管理</a>
+        </li>
+        <li class="active">
+            <a href="{:url('addTag')}">标签添加</a>
+        </li>
+    </ol>
+    <ul class="nav nav-tabs" role="tablist">
+        <li><a href="{:url('index')}">标签管理</a></li>
+        <li class="active"><a href="{:url('addTag')}">标签添加</a></li>
+    </ul>
+    <form class="form-horizontal" id="form"  action="" method="post">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">标签管理</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">标签名称</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="tag_name" value="支持汉字,字母,数字和下划线及破折号">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">确定</button>
+    </form>
+
+</div>
+<!--右侧主题部分 end-->
+{/block}
