@@ -15,9 +15,8 @@ class Article extends Controller
 
     public function index(){
         //每页显示10条数据
-        $artList = $this->db->getAll();
-        $cateName = $this->db->getCateNameList();
-        $this->assign('list', $artList);
+        $list = $this->db->getAll();
+        $this->assign('list', $list);
         return $this->fetch();
     }
 

@@ -37,10 +37,10 @@
                         <td>{$vo['arc_title']}</td>
                         <td>{$vo['arc_author']}</td>
                         <td>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" value="{$vo['arc_sort']}" >
                         </td>
-                        <td>{$vo['cate_id']}</td>
-                        <td>{$vo['createtime']}</td>
+                        <td>{$vo['cate_name']}</td>
+                        <td>{:date("Y-m-d H:i:s",$vo['createtime'])}</td>
                         <td>
                             <div class="btn-group">
                                 <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle">操作 <span class="caret"></span></button>
@@ -53,14 +53,14 @@
                         </td>
                     </tr>
                     {/foreach}
-                    {$list->render()}
+
                     </tbody>
                 </table>
             </div>
         </div>
     </form>
     <div class="pagination pagination-sm pull-right">
-
+        {$list->render()}
     </div>
 </div>
 <!--右侧主题部分 end-->
