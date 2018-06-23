@@ -26,8 +26,8 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {foreach name='list' key="key" item='vo'}
                     <tr>
-                        {foreach name='list' key="key" item='vo'}
                         <td>{$vo['cate_id']}</td>
                         <td>{$vo['_cate_name']}</td>
                         <td>

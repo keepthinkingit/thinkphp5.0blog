@@ -9,10 +9,13 @@ class Tag extends Model
     protected $pk = 'tag_id'; //主键
     protected $table = 'blog_tag';  //完整的表名称
     //
-    public function getAll(){
+    public function getAll($num=10){
         //查询blog_tag(数据库前缀设置在database.php)表中,每页显示10条数据
-        $tagList = db('tag')->paginate(10);
-
+        if($num==0){
+            $tagList = db('tag')->select();
+        }else{
+            $tagList = db('tag')->paginate($num);
+        }
         return $tagList;
     }
 

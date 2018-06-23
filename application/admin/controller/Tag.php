@@ -15,7 +15,7 @@ class Tag extends Controller
 
     public function index(){
         //每页显示10条数据
-        $tagList = $this->db->getAll();
+        $tagList = $this->db->getAll(10);
         $this->assign('list', $tagList);
         return $this->fetch();
     }
@@ -49,7 +49,6 @@ class Tag extends Controller
                 $this->error($result['msg']);
             }
         }
-        //新建标签不能跟数据库原有标签重复,此功能待完成.
         return $this->fetch();
     }
 

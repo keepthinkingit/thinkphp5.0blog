@@ -6,15 +6,14 @@
 <div class="col-xs-12 col-sm-9 col-lg-10">
     <ol class="breadcrumb" style="background-color: #f9f9f9;padding:8px 0;margin-bottom:10px;">
         <li>
-            <a href="{:url('index')}"><i class="fa fa-cogs"></i>
-                文章管理</a>
+            <a href="{:url('index')}"><i class="fa fa-cogs"></i>回收站</a>
         </li>
         <li class="active">
             <a href="{:url('addArt')}">文章添加</a>
         </li>
     </ol>
     <ul class="nav nav-tabs" role="tablist">
-        <li class="active"><a href="#tab1">文章管理</a></li>
+        <li class="active"><a href="#tab1">回收站</a></li>
         <li><a href="{:url('addArt')}">文章添加</a></li>
     </ul>
     <form action="" method="post">
@@ -47,9 +46,10 @@
                             <div class="btn-group">
                                 <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle">操作 <span class="caret"></span></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="{:url('edit',['arc_id'=>$vo['arc_id']])}">编辑</a></li>
+                                    <li><a href="{:url('revert',['arc_id'=>$vo['arc_id']])}">恢复原文章</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="{:url('del',['arc_id'=>$vo['arc_id']])}">删除到回收站</a></li>
+                                    <!--<li><a href="javascript:;" onclick="del({//$vo['arc_id']})">彻底删除</a></li>-->
+                                    <a href="{:url('eraser',['arc_id'=>$vo['arc_id']])}">删除</a>
                                 </ul>
                             </div>
                         </td>
@@ -66,4 +66,12 @@
     </div>
 </div>
 <!--右侧主题部分 end-->
+<script>
+    //删除文章
+    function del(arc_id){
+        util.confirm('确定删除么?',function(){
+            alert('点击确定后执行');
+        })
+    }
+</script>
 {/block}

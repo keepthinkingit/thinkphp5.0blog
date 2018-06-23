@@ -1,18 +1,19 @@
 {extend name='base' /}
-{block name='content'}
+{block name='content' }
 <!--右侧主题部分 start-->
 <div class="col-xs-12 col-sm-9 col-lg-10">
     <ol class="breadcrumb" style="background-color: #f9f9f9;padding:8px 0;margin-bottom:10px;">
         <li>
-            <a href=""><i class="fa fa-cogs"></i>标签管理</a>
+            <a href="{:url('index')}"><i class="fa fa-cogs"></i>
+                友链管理</a>
         </li>
         <li class="active">
-            <a href="{:url('index')}">标签展示</a>
+            <a href="{:url('index')}">友链展示</a>
         </li>
     </ol>
     <ul class="nav nav-tabs" role="tablist">
-        <li class="active"><a href="{:url('index')}">标签管理</a></li>
-        <li><a href="{:url('addTag')}">添加标签</a></li>
+        <li class="active"><a href="">友链管理</a></li>
+        <li><a href="{:url('addLink')}">添加友链</a></li>
     </ul>
     <form action="" method="post">
         <div class="panel panel-default">
@@ -20,30 +21,28 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th width="80">编号</th>
-                        <th width="250">标签名</th>
-                        <th width="230">操作</th>
+                        <th width="120">编号</th>
+                        <th>链接名称</th>
+                        <th width="30%">操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {foreach name='list' key="key" item='vo'}
+                    {foreach name='list' item='vo'}
                     <tr>
-                        <td>{$vo['tag_id']}</td>
-                        <td>{$vo['tag_name']}</td>
+                        <td>{$vo['link_id']}</td>
+                        <td>{$vo['link_name']}</td>
                         <td>
-                            <!--<div class="btn-group">-->
+                            <div class="btn-group">
                                 <!--<button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle">操作 <span class="caret"></span></button>-->
                                 <!--<ul class="dropdown-menu dropdown-menu-right">-->
                                     <!--<li><a href="">编辑</a></li>-->
                                     <!--<li class="divider"></li>-->
                                     <!--<li><a href="javascript:;">删除</a></li>-->
                                 <!--</ul>-->
-                            <!--</div>-->
-                            <div>
-                                <a href="{:url('edit',['tag_id'=>$vo['tag_id']])}">编辑</a>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <a href="{:url('del',['tag_id'=>$vo['tag_id']])}">删除</a>
                             </div>
+                            <a href="{:url('edit',['link_id'=>$vo['link_id']])}">编辑</a>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <a href="{:url('del',['link_id'=>$vo['link_id']])}">删除</a>
                         </td>
                     </tr>
                     {/foreach}

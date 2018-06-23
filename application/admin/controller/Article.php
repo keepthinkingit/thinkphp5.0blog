@@ -15,7 +15,7 @@ class Article extends Controller
 
     public function index(){
         //每页显示10条数据
-        $list = $this->db->getAll();
+        $list = $this->db->getAll(2);
         $this->assign('list', $list);
         return $this->fetch();
     }
@@ -28,7 +28,6 @@ class Article extends Controller
     public function addArt(){
         //判断post过来的数据
         if(request()->isPost()){
-            // halt(input('post.'));
             $result = $this->db->addArt(input('post.'));
             if($result['valid']){
                 //验证成功
@@ -39,9 +38,9 @@ class Article extends Controller
             }
         }
         $cateList = (new \app\common\model\Category())->getAll();
+        $this->assign('cate_list', $cateList);
         $tagList = (new \app\common\model\Tag())->getAll();
         $this->assign('tag_list', $tagList);
-        $this->assign('cate_list', $cateList);
         return $this->fetch();
     }
 
@@ -54,8 +53,7 @@ class Article extends Controller
     public function edit(){
         //判断post过来的数据
         if(request()->isPost()){
-            // halt(input('post.'));exit;
-            $result = $this->db->catEdit(input('post.'));
+            $result = $this->db->artEdit(input('post.'));
             if($result['valid']){
                 //验证成功
                 $this->success($result['msg'], 'index');
@@ -64,25 +62,56 @@ class Article extends Controller
                 $this->error($result['msg']);
             }
         }
-        $cate_id = input('param.cate_id');
-        $oldData = $this->db->where('cate_id', $cate_id)->find();
-        // halt($oldData);
-        //处理所属分类,不能包含子集和本身
-        $cateList = $this->db->getPid($cate_id);
-        $this->assign('cateList', $cateList);
-        $this->assign('data', $oldData);
+        $arc_id = input('param.arc_id');
+        //获取分类,默认显示现在所属分类
+        $cateList = (new \app\common\model\Category())->getAll();
+        $this->assign('cate_list', $cateList);
+        //获取标签数据
+        $tagList = (new \app\common\model\Tag())->getAll();
+        $this->assign('tag_list', $tagList);
+        //获取已选取的标签
+        $result = $this->db->getTagList($arc_id);
+        $this->assign('tag_select', $result);
+        //获取文章数据
+
+        $data = $this->db->getPost($arc_id);
+        $this->assign('data', $data);
+        // halt($data);exit;
         return $this->fetch();
     }
 
     public function del(){
-        $cate_id = input('param.cate_id');
-        $result = $this->db->del($cate_id);
-        if($result['valid']){
-            //删除成功
-            $this->success($result['msg'], 'index');
+        $arc_id = input('param.arc_id');
+        if($this->db->save(['is_recycle'=>1],['arc_id'=>$arc_id])){
+            $this->success('删除成功', 'index');
         }else{
-            //删除失败
-            $this->error($result['msg']);
+            $this->error('删除失败');
+        }
+    }
+
+    public function recycle(){
+        //每页显示10条数据
+        $list = $this->db->getAll(1);
+        $this->assign('list', $list);
+        return $this->fetch();
+    }
+
+    //撤销删除,恢复文章到文章列表
+    public function revert(){
+        $arc_id = input('param.arc_id');
+        if($this->db->save(['is_recycle'=>2],['arc_id'=>$arc_id])){
+            $this->success('恢复成功', 'recycle');
+        }else{
+            $this->error('恢复失败');
+        }
+    }
+
+    public function eraser(){
+        $arc_id = input('param.arc_id');
+        if($this->db->save(['is_recycle'=>0],['arc_id'=>$arc_id])){
+            $this->success('彻底删除成功', 'recycle');
+        }else{
+            $this->error('彻底删除失败');
         }
     }
 }
