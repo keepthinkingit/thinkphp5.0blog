@@ -1,1 +1,1 @@
-# thinkphp5.0blog
+thinkphp5.0blog
