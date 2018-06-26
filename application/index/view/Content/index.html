@@ -1,5 +1,10 @@
 {extend name='base' /}
 {block name='content'}
+<style>
+    img{
+        width:100%;
+    }
+</style>
 <article>
     <div class="_head">
         <h1>{$artData['arc_title']}</h1>
@@ -10,10 +15,11 @@
         •
         <!--pubdate表⽰示发布⽇日期-->
         <time pubdate="pubdate" datetime="{:date('Y年m月d日 H:i:s',$artData['createtime'])}">{:date('Y年m月d日 H:i:s',$artData['createtime'])}</time>
+        <span>分类:<a href="{:url('index/lists/index',['cate_id'=>$artData['cate_id']])}">{$artData['cate_name']}</a></span>
     </div>
     <div class="_digest">
         <p>
-            {$artData['arc_digest']}
+            {$artData['arc_content']}
         </p>
     </div>
     <div class="_footer">

@@ -13,7 +13,7 @@ class Index extends Model
         $data = db('article')->alias('a')
             ->join('__CATE__ c', 'a.cate_id=c.cate_id')
             ->where('is_recycle',$is_recycle)->order('createtime desc')->select();
-        // halt($data);exit;
+        // 把每篇文章中的标签获取出来
         foreach($data as $k=>$v){
             $data[$k]['tags'] = db('arc_tag')->alias('z')
                 ->join('__TAG__ t','z.tag_id=t.tag_id')

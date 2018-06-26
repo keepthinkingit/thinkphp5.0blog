@@ -10,6 +10,9 @@ class Lists extends Common
 
     public function index()
     {
+        //填充head title
+        $headName = $this->loadWebSet()['title'] . '--分类页';
+        $this->assign('headName',$headName);
         $cate_id = input('param.cate_id');
         $artData = db('article')->alias('a')
             ->join('__CATE__ c','a.cate_id=c.cate_id')
@@ -26,7 +29,7 @@ class Lists extends Common
         // halt($artData);exit;
         $this->assign('data',$artData);
         //获取分类名称
-        $cate_name = db('cate')->where('cate_id',$cate_id)->field('cate_name')->find();
+        $cate_name = db('cate')->where('cate_id',$cate_id)->value('cate_name');
         $this->assign('name',$cate_name);
         //获取该分类下所有文章统计
         $all = count(db('article')->where('cate_id',$cate_id)->where('is_recycle',2)->field('arc_id')->select());

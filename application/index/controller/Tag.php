@@ -8,6 +8,9 @@ class Tag extends Common
 {
     public function index()
     {
+        //填充head title
+        $headName = $this->loadWebSet()['title'] . '--标签页';
+        $this->assign('headName',$headName);
         $tag_id = input('param.tag_id');
         $tagData = db('arc_tag')->where('tag_id',$tag_id)->column('arc_id');
         // dump($tagData);exit;

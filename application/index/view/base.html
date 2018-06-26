@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>hdphp教学博客-首页</title>
+    <title>{$headName}</title>
     <!--描述和摘要-->
     <meta name="Description" content=""/>
     <meta name="Keywords" content=""/>
@@ -42,9 +42,9 @@
                 </div>
                 <div class="collapse navbar-collapse" id="example-navbar-collapse">
                     <ul class="_menu" >
-                        <li class="_active"><a href="{:url('index/index/index')}">首页</a></li>
+                        <li {if condition="!input('param.')"}class="_active"{/if}><a href="__ROOT__/index.html">首页</a></li>
                         {foreach name='_cateList' item='vo'}
-                        <li><a href="{:url('index/lists/index',['cate_id'=>$vo['cate_id']])}">{$vo['cate_name']}</a></li>
+                        <li {if condition="input('param.cate_id')==$vo['cate_id']"}class="_active"{/if}><a href="{:url('index/lists/index',['cate_id'=>$vo['cate_id']])}">{$vo['cate_name']}</a></li>
                         {/foreach}
                     </ul>
                 </div>
@@ -81,7 +81,7 @@
                     <h4>标签云</h4>
                     <div class="_tag">
                         {foreach name='_allTag' item='vot'}
-                        <a href="{:url('index/lists/index',['tag_id'=>$vot['tag_id']])}">{$vot['tag_name']}</a>
+                        <a href="{:url('index/tag/index',['tag_id'=>$vot['tag_id']])}">{$vot['tag_name']}</a>
                         {/foreach}
                     </div>
                 </div>
