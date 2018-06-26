@@ -15,7 +15,7 @@ class Article extends Controller
 
     public function index(){
         //每页显示10条数据
-        $list = $this->db->getAll(2);
+        $list = $this->db->getAll(2,5);//文章状态;每页显示文章数  第一个参数2为正常文章,1为回收站文章
         $this->assign('list', $list);
         return $this->fetch();
     }

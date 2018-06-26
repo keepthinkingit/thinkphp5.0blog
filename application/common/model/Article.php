@@ -24,13 +24,13 @@ class Article extends Model
         return time();
     }
 
-    public function getAll($is_recycle){
+    public function getAll($is_recycle,$num=3){
         //查询blog_tag(数据库前缀设置在database.php)表中,每页显示10条数据
         // $tagList = db('article')->paginate(10);
         $data = db('article')->alias('a')->join('__CATE__ c', 'a.cate_id=c.cate_id')
             ->field('a.arc_id,a.arc_title,a.createtime,a.arc_author,c.cate_name,a.arc_sort')
             ->order('a.arc_sort desc,a.createtime,a.arc_id desc')
-            ->where('a.is_recycle',$is_recycle)->paginate(3);
+            ->where('a.is_recycle',$is_recycle)->paginate($num);
         return $data;
     }
 
